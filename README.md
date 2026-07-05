@@ -12,12 +12,12 @@ Built as part of the CBSOT Summer Internship 2026.
 
 ## How It Works
 
-1. **Data Loading & Cleaning** - Load the ML-ArXiv-Papers dataset, merge titles with abstracts, and remove formatting artifacts.
-2. **Embedding Generation** - Use `all-MiniLM-L6-v2` to convert each paper into a 384-dimensional vector.
-3. **Index Building** - Store embeddings in a FAISS index with L2 normalization for cosine similarity search.
-4. **Query Processing** - Convert user queries into vectors using the same Sentence Transformer model.
-5. **Retrieval** - Find the top-K most semantically similar papers using FAISS inner product search.
-6. **Summarization** - Generate concise AI summaries of retrieved abstracts using DistilBART.
+1. Data Loading & Cleaning - Load the ML-ArXiv-Papers dataset, merge titles with abstracts, and remove formatting artifacts.
+2. Embedding Generation - Use `all-MiniLM-L6-v2` to convert each paper into a 384-dimensional vector.
+3. Index Building - Store embeddings in a FAISS index with L2 normalization for cosine similarity search.
+4. Query Processing - Convert user queries into vectors using the same Sentence Transformer model.
+5. Retrieval - Find the top-K most semantically similar papers using FAISS inner product search.
+6. Summarization - Generate concise AI summaries of retrieved abstracts using DistilBART.
 
 ## Project Structure
 
@@ -32,34 +32,131 @@ aiml_research/
 
 ## Setup
 
+Clone the repository:
+
 ```bash
 git clone https://github.com/masoom7-code/semantic-research-paper-search.git
+```
+
+Navigate to the project directory:
+
+```bash
 cd semantic-research-paper-search
+```
+
+Install the required dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 
-## Usage
+## How to Run the Project
 
-**Step 1:** Run `EDA.ipynb` to load the dataset, clean the data, and generate embeddings. This saves `arxiv_embeddings.npy` and `cleaned_arxiv_papers.csv` to the `data/` folder.
+The project uses Jupyter Notebook to execute the data processing, embedding generation, semantic search, and summarization pipeline.
 
-**Step 2:** Run `Search_Engine.ipynb` to build the FAISS index and search for research papers.
+### Step 1: Install Jupyter Notebook
 
-Example query:
+If Jupyter Notebook is not installed, run:
+
+```bash
+pip install notebook
+```
+
+### Step 2: Start Jupyter Notebook
+
+From the project directory, run:
+
+```bash
+jupyter notebook
+```
+
+A Jupyter Notebook interface should open automatically in your web browser.
+
+If it does not open automatically, copy the localhost URL displayed in the terminal and open it in your browser.
+
+### Step 3: Run the EDA Notebook
+
+Open:
+
+```text
+EDA.ipynb
+```
+
+Run all notebook cells in order.
+
+This notebook:
+
+* Loads the ML-ArXiv-Papers dataset
+* Performs data exploration and cleaning
+* Combines paper titles and abstracts
+* Generates 384-dimensional semantic embeddings using `all-MiniLM-L6-v2`
+* Saves the generated embeddings and cleaned dataset inside the `data/` directory
+
+Generated files:
+
+```text
+data/
+├── arxiv_embeddings.npy
+└── cleaned_arxiv_papers.csv
+```
+
+Embedding generation may take some time depending on the system hardware.
+
+### Step 4: Run the Semantic Search Notebook
+
+After completing `EDA.ipynb`, open:
+
+```text
+Search_Engine.ipynb
+```
+
+Run all notebook cells in order.
+
+This notebook:
+
+* Loads the generated embeddings
+* Builds the FAISS vector index
+* Processes natural language search queries
+* Retrieves semantically similar research papers
+* Generates concise AI summaries using DistilBART
+
+### Step 5: Search for Research Papers
+
+Use the `search_and_summarize()` function to search for research papers.
+
+Example:
 
 ```python
 search_and_summarize("deep learning in medical science", k=5)
 ```
 
-The system returns research paper titles, abstracts, similarity scores, and AI-generated summaries.
+You can replace the query with any research topic.
+
+Example queries:
+
+```python
+search_and_summarize("artificial intelligence in healthcare", k=5)
+
+search_and_summarize("transformer models for natural language processing", k=5)
+
+search_and_summarize("computer vision for autonomous vehicles", k=5)
+```
+
+The system returns:
+
+* Research paper titles
+* Paper abstracts
+* Semantic similarity scores
+* AI-generated summaries
 
 ## Tech Stack
 
-* **Embeddings:** Sentence Transformers (`all-MiniLM-L6-v2`)
-* **Vector Search:** FAISS (Facebook AI Similarity Search)
-* **Summarization:** Hugging Face Transformers (DistilBART)
-* **Keyword Extraction:** KeyBERT
-* **Data Processing:** Pandas, NumPy
-* **ML Utilities:** Scikit-learn (cosine similarity)
+* Embeddings: Sentence Transformers (`all-MiniLM-L6-v2`)
+* Vector Search: FAISS (Facebook AI Similarity Search)
+* Summarization: Hugging Face Transformers (DistilBART)
+* Keyword Extraction: KeyBERT
+* Data Processing: Pandas, NumPy
+* ML Utilities: Scikit-learn
 
 ## Dataset
 
@@ -77,6 +174,6 @@ Dataset: https://huggingface.co/datasets/CShorten/ML-ArXiv-Papers
 
 ## Author
 
-**Masoom Perwez Alam**
+Masoom Perwez Alam
 
-Developed as part of the **CBSOT Summer Internship 2026**.
+Developed as part of the CBSOT Summer Internship 2026.
