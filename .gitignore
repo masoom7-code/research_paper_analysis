@@ -1,0 +1,8 @@
+data/cleaned_arxiv_papers.csv
+data/arxiv_embeddings.npy
+data/paper_faiss.index
+
+__pycache__/
+*.pyc
+.venv/
+.env
